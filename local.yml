@@ -15,9 +15,12 @@
       with_items:
         - apache2
         - libapache2-mod-php5
+        - php5-mysql
+        - awscli
+        - mysql-client-core-5.6
 
     - name: disable default apache2 site
-      file: state=absent path=/etc/apache2/sites-enabled/000-default
+      file: state=absent path=/etc/apache2/sites-enabled/000-default.conf
 
     - name: copy deployment script
       copy: src=files/deploy_domserver.sh dest=/root/deploy_domserver.sh mode=0755
