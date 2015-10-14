@@ -5,10 +5,6 @@
     - name: be sure apt cache is updated
       apt: update_cache=yes
 
-  vars:
-    #domserver_bucket: domserver-archives
-    #domserver_object: domserver-2015-10-09-141110.tar.gz
-
   tasks:
     - name: install apache2
       apt: pkg={{item}} state=present
@@ -16,6 +12,7 @@
         - apache2
         - libapache2-mod-php5
         - php5-mysql
+        - php5-gd
         - awscli
         - mysql-client-core-5.6
 
