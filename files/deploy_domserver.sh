@@ -5,7 +5,7 @@ INSTALLDIR="/srv/${DOMSERVER_S3_FILE%%.*}"
 mkdir -p $INSTALLDIR
 
 aws s3 cp --region=${DOMSERVER_S3_REGION} s3://${DOMSERVER_S3_BUCKET}/${DOMSERVER_S3_FILE} /tmp/${DOMSERVER_S3_FILE}
-tar zxf /tmp/${DOMSERVER_S3_FILE} -C "$INSTALLDIR"
+tar zxf --no-same-owner -/tmp/${DOMSERVER_S3_FILE} -C "$INSTALLDIR"
 
 # run script to install/post configuration
 cd $INSTALLDIR
