@@ -4,7 +4,7 @@ DOMjudge DOMserver(the web interface portion) onto. It basically installs
 the necessary dependencies into an Ubuntu 14.04 image and configures apache2
 in a way that we expect.
 
-TODO: Link to the parent repository that uses this AMI(Currently unpublished)
+Please refer to the parent project for more details: https://github.com/ubergeek42/domjudge-aws
 
 ## Dependencies
 This script depends on boto3 to be present on your workstation.
