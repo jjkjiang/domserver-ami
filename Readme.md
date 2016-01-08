@@ -33,6 +33,8 @@ aws_secret_access_key = YOUR_SECRET_KEY
 Once you've set up boto3, you just need to run the `createami.py` script. When
 it finishes it will print out the AMI ID. That's it!
 
+Note that this process may take 20+ minutes to run.
+
 You may want to edit the `createami.py` file to specify your AWS region and base
 ami to start from. See comments in the file.
 
