@@ -9,8 +9,8 @@
     - name: install dependencies
       apt: pkg={{item}} state=present
       with_items:
-        - apache2
-        - libapache2-mod-php5
+        - nginx
+        - php5-fpm
         - php5-mysql
         - php5-gd
         - awscli
@@ -18,8 +18,20 @@
         - zip
         - unzip
 
-    - name: disable default apache2 site
-      file: state=absent path=/etc/apache2/sites-enabled/000-default.conf
+    - name: copy default nginx config
+      copy: src=files/nginx.conf dest=/etc/nginx/nginx.conf
+
+    - name: disable default nginx site
+      file: state=absent path=/etc/nginx/sites-enabled/default
+
+    - name: disable default php fpm pool
+      file: state=absent path=/etc/php5/fpm/pool.d/www.conf
+
+    - name: set default security/limits.conf
+      copy: src=files/limits.conf dest=/etc/security/limits.d/nginx-limits.conf
+
+    - name: set default sysctl stuff
+      copy: src=files/sysctl.conf dest=/etc/sysctl.conf
 
     - name: copy deployment script
       copy: src=files/deploy_domserver.sh dest=/root/deploy_domserver.sh mode=0755
@@ -27,7 +39,3 @@
     - name: do something with ufw
       ufw: logging=off
       tags: ['domjudge-server', 'ufw']
-
-  handlers:
-    - name: reload apache2
-      command: /usr/sbin/service apache2 graceful

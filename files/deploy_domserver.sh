@@ -12,6 +12,8 @@ cd $INSTALLDIR
 chmod +x $INSTALLDIR/setup.sh
 ./setup.sh
 
-# now we configure apache2, and reload it
-cp $INSTALLDIR/apache2.conf /etc/apache2/sites-enabled/domserver.conf
-service apache2 graceful
+# now we configure nginx, and reload it
+cp $INSTALLDIR/nginx-site.conf /etc/nginx/sites-enabled/domserver
+cp $INSTALLDIR/php-fpm-pool.conf /etc/php5/fpm/pool.d/domserver.conf
+service php5-fpm restart
+service nginx restart
