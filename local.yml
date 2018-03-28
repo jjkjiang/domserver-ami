@@ -9,14 +9,37 @@
     - name: install dependencies
       apt: pkg={{item}} state=present
       with_items:
-        - apache2
-        - libapache2-mod-php5
-        - php5-mysql
-        - php5-gd
-        - awscli
-        - mysql-client-core-5.6
+        - gcc
+        - g++
+        - make
         - zip
         - unzip
+        - mysql-server
+        - apache2
+        - php
+        - php-cli
+        - libapache2-mod-php
+        - php-gd
+        - php-curl
+        - php-mysql
+        - php-json
+        - php-zip
+        - php-mcrypt
+        - php-gmp
+        - php-xml
+        - php-mbstring
+        - bsdmainutils
+        - ntp
+        - phpmyadmin
+        - libcgroup-dev
+        - linuxdoc-tools
+        - linuxdoc-tools-text
+        - groff
+        - texlive-latex-recommended
+        - texlive-latex-extra
+        - texlive-fonts-recommended
+        - texlive-lang-european
+        - awscli
 
     - name: disable default apache2 site
       file: state=absent path=/etc/apache2/sites-enabled/000-default.conf
