@@ -15,10 +15,6 @@ ssh_keypair = 'domjudge-aws'
 ssh_securitygroup = 'open-ssh'
 
 cconfig = """#cloud-config
-"""
-
-
-cconfig_old = """#cloud-config
 power_state:
   mode: poweroff
   timeout: 900
@@ -43,7 +39,7 @@ apt-get install -y -q ansible
 ansible-pull -U http://github.com/jjkjiang/domserver-ami.git -v -d /mnt/playbooks -i "localhost,"
 # ansible-playbook -v -i "localhost," -c local local.yml
 
-poweroff
+exit 0
 """
 
 combined_message = MIMEMultipart()
@@ -67,7 +63,7 @@ instances = ec2.create_instances(
 )
 instance = instances[0]
 
-print("Waiting for instance to boot")
+print("Waiting for instance {} to boot".format(instance.instance_id))
 while instance.state['Name'] != 'running':
     print(".", end='')
     sys.stdout.flush()
@@ -76,15 +72,13 @@ while instance.state['Name'] != 'running':
 print()
 
 print("Instance provisioning...")
-print("Waiting for instance to stop")
+print("Waiting for instance {} to stop".format(instance.instance_id))
 while instance.state['Name'] != 'stopped':
     print(".", end='')
     sys.stdout.flush()
     time.sleep(5)
     instance.reload()
 print()
-
-exit()
 
 ts = int(time.time())
 image = instance.create_image(
